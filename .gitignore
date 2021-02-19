@@ -154,3 +154,5 @@ venv/
 server/MNIST-images/*
 
 library/app_HE
+
+*.csv

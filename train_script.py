@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import requests
 import pandas as pd
 
@@ -35,9 +37,11 @@ for i in range(20):
 
 df = pd.DataFrame(data={
     'aggregation time': aggregation_time,
-    'test accuracy': test_accuracy,
     'test loss': test_loss,
+    'test accuracy': test_accuracy,
 })
 df.index += 1
 
-df.to_csv('test_results_plain_fl.csv', index_label="Epochs")
+dt_string = datetime.now().replace(microsecond=0).strftime("%Y-%m-%d_%H-%M-%S")
+
+df.to_csv(f'test_results_plain_fl_{dt_string}.csv', index_label="Epochs")
