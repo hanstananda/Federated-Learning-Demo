@@ -104,7 +104,6 @@ def create_app(test_config=None):
         for idx, weight in enumerate(model.get_weights()):
             shape = weight.shape
             new_weight = numpy.array(weights[idx], dtype="object")/num_party
-            new_weight = numpy.resize(new_weight, shape)
             weights[idx] = new_weight
 
         model.set_weights(weights)

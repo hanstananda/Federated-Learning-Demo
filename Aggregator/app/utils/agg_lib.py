@@ -28,17 +28,18 @@ class Aggregator:
                 "num_party": num_party,
                 "aggregation_time": time_elapsed.__str__(),
             }
-        agg_weights = numpy.array(self._weights[0], dtype="object")
+        agg_weights = [numpy.asarray(i) for i in self._weights[0]]
 
         for i in range(1, num_party):
-            agg_weights += numpy.array(self._weights[i], dtype="object")
+            for j in range(len(agg_weights)):
+                agg_weights[j] += numpy.asarray(self._weights[i][j])
 
         time_elapsed = time.perf_counter() - start_time
 
         del self._weights[:num_party]
 
         return {
-            "weights": agg_weights.tolist(),
+            "weights": [i.tolist() for i in agg_weights],
             "num_party": num_party,
             "aggregation_time": time_elapsed,
         }
