@@ -1,8 +1,7 @@
-# HE Element-Wise Workers service
+# Federated Learning Workers service
 
 ## Prerequisites
 1. Python 3 (Tested on Python 3.7)
-2. HE Element-Wise C++ Library
 
 ## Running the project
 
@@ -11,15 +10,7 @@
     pip install -r requirements.txt
     ```
 
-2.  Install the "HE Element-Wise C++" Library
-    ```bash
-    cd library
-    cmake --configure .
-    cmake --build .
-    ```
-    For more details, please refer to the [library readme](https://github.com/hanstananda/HE_EW_CPP/blob/master/README.md)
-
-3.  Run the python script
+2.  Run the python script
     ```
     python run_server.py
     ```
@@ -28,43 +19,28 @@ Currently, there will be two workers set up at port `7101` and `7102` respective
 
 ## APIs 
 
-The current APIs available in this server: 
+The current APIs available in this server:
 *   GET `/get_params`
-    Used to get the parameters for the PySEAL in json format. 
-    This is added to enable checking of PySEAL, so we can make sure that it is set up properly. 
-    Example input: 
+    Used to get the parameters for this server
+    Example input:
     ```
-    localhost:7101/get_params 
+    localhost:7200/get_params 
     ``` 
-    
-    Example output: 
+
+    Example output:
     ```json
     {
         "error_code": 0,
         "error_message": "",
         "result": {
-            "coeff_modulus": [
-                1152921504606748673,
-                1099510890497,
-                1099511480321,
-                1152921504606830593
-            ],
-            "coeff_modulus_size": [
-                60,
-                40,
-                40,
-                60
-            ],
-            "plain_modulus": 0,
-            "poly_modulus_degree": 8192,
-            "scheme": "CKKS"
+            "scheme": "FL plain"
         },
         "success": true
     }
     ```
 
 *   GET `/train`
-    Used to train the model and send the encrypted weights after training to the aggregator service. 
+    Used to train the model and send the weights after training to the aggregator service. 
     Currently set to only train for 1 epoch using MNIST dataset. 
     
     Example input: 

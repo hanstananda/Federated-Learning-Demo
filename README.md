@@ -12,11 +12,6 @@ This project is further divided to 3 different subproject to handle different pa
 
 Please refer to the respective subprojects' readme for more information. 
 
-## Setup Notes
-
-This project requires the "HE_EW_CPP" library. The current working library is available at the `library` directory under 
-each subproject. This submodule is currently available from [here](https://github.com/hanstananda/HE_EW_CPP)
-
 ## Usage guide 
 1.  Start the `server`, followed by `workers` and `aggregator` respectively. 
 2.  To start training, go to any worker endpoints and invoke the `/train` API.
