@@ -1,3 +1,7 @@
+"""
+All server errors and responses should be put here
+"""
+
 SERVER_OK = 0
 SERVER_ERROR = 1
 DATABASE_ERROR = 2

@@ -14,6 +14,10 @@ from config.flask_config import PARAMS_JSON_ENDPOINT, \
 
 
 def create_app(config_object=None):
+    """
+    This function serves as a producer for the aggregator instances
+    You can call this function multiple times to produce multiple aggregator instances
+    """
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -45,11 +49,17 @@ def create_app(config_object=None):
     # a simple page that says hello
     @app.route('/')
     def hello():
+        """
+        Simple homepage for health check
+        """
         return "Hello from Aggregator!".format(id)
 
     # To check whether worker params successfully set up
     @app.route('/get_params')
     def get_params():
+        """
+        API to get information regarding the scheme used in this server.
+        """
         res = aggregator.get_param_info()
         return jsonify({
             'success': True,
@@ -60,6 +70,10 @@ def create_app(config_object=None):
 
     @app.route('/save_weights', methods=['POST'])
     def save_weights():
+        """
+        API to save the weights received from the workers to the queue.
+        Note that by design this API should not be called manually.
+        """
         content = request.json
         weights = content['weights']
         aggregator.save_weight(weights)
@@ -71,6 +85,9 @@ def create_app(config_object=None):
 
     @app.route('/agg_val')
     def agg_val():
+        """
+        API to aggregate the weights received from the worker nodes and then send it to the server.
+        """
         aggregate_res = aggregator.aggregate_weights()
         logging.info(f"Aggregated {aggregate_res['num_party']} result(s)")
 

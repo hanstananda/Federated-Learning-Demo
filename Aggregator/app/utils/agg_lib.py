@@ -4,21 +4,36 @@ import numpy
 
 
 class Aggregator:
+    """
+    Helper class used to handle the aggregation logic
+    """
 
     def __init__(self):
         self._weights = []
 
     @staticmethod
     def get_param_info():
+        """
+        Used to return information regarding the scheme used
+        """
         res = {
             "scheme": "FL plain"
         }
         return res
 
     def save_weight(self, weights):
+        """
+        Used to temporarily save the weights from a worker to be aggregated later
+        """
         self._weights.append(weights)
 
     def aggregate_weights(self):
+        """
+        Used to aggregate the weights from the workers and return the results
+        The aggregation function used here is a simple unweighted addition
+        This function assumes that all the given weights are from the same model,
+        and thus have the exact same dimension.
+        """
         start_time = time.perf_counter()
         num_party = len(self._weights)
         if num_party == 0:
