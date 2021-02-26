@@ -16,6 +16,10 @@ from tensorflow import keras
 
 
 def create_app(test_config=None):
+    """
+    This function serves as a producer for the server instances
+    You can call this function multiple times to produce multiple server instances
+    """
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -59,10 +63,16 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/')
     def hello():
+        """
+        Simple homepage for health check
+        """
         return 'Hello, World!'
 
     @app.route('/get_params')
     def get_params():
+        """
+        API to get information regarding the scheme used in this server.
+        """
         return jsonify({
             'success': True,
             'error_code': SERVER_OK,
@@ -74,10 +84,16 @@ def create_app(test_config=None):
 
     @app.route('/get_model')
     def get_model():
+        """
+        API to get the base model definition in '.h5' format
+        """
         return send_file(os.path.join(os.path.dirname(app.root_path), MODEL_SAVE_FILE))
 
     @app.route('/get_model_weights')
     def get_model_weights():
+        """
+        API to get the latest model weights
+        """
         # for i in model.get_weights():
         #     print(i.shape)
         #     print(i[0])
@@ -96,6 +112,9 @@ def create_app(test_config=None):
 
     @app.route('/update_model_weights', methods=['POST'])
     def update_model_weights():
+        """
+        API to update the weights of the model based on the aggregated weights
+        """
         content = request.json
         weights = content['weights']
         num_party = content['num_party']
@@ -118,6 +137,9 @@ def create_app(test_config=None):
 
     @app.route('/evaluate_model')
     def evaluate_model():
+        """
+        Used to evaluate the current model performance (accuracy and loss).
+        """
         (_, _), (x_test, y_test) = keras.datasets.mnist.load_data()
         # Scale images to the [0, 1] range
         x_test = x_test.astype("float32") / 255

@@ -88,4 +88,25 @@ The current APIs available in this server:
     ```
     Where 
     *   `weights` denotes the weights of each layer as a list of weights. 
-    *   `num_party` denotes the number of workers that are participating in the aggregated value. 
+    *   `num_party` denotes the number of workers that are participating in the aggregated value.
+    
+*   GET `evaluate_model`
+    Used to evaluate the current model performance (accuracy and loss).
+    
+    Example input:
+    ```
+    localhost:7000/evaluate_model 
+    ``` 
+
+    Example output:
+    ```json
+    {
+        "error_code": 0,
+        "error_message": "",
+        "result": {
+            "loss": 0.1,
+            "accuracy": 0.95
+        },
+        "success": true
+    }
+    ```

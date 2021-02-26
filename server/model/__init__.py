@@ -6,6 +6,9 @@ import tensorflow as tf
 from PIL.Image import Image
 from tensorflow import keras
 
+"""
+Define input shape and number of classes to be classified
+"""
 # Model / data parameters
 num_classes = 10
 input_shape = (28, 28, 1)
@@ -13,6 +16,11 @@ input_shape = (28, 28, 1)
 
 # Define a simple sequential model
 def create_model():
+    """
+    Model is defined and compiled here
+    This includes loss, optimizer, and metrics definition
+    """
+
     model = tf.keras.Sequential([
         keras.Input(shape=input_shape),
         tf.keras.layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
@@ -40,6 +48,9 @@ def create_model():
 
 
 def predict(model, image: Image):
+    """
+    This is used to predict the classes of the given image
+    """
     # Change to grayscale
     image = image.convert('L')
     # Change to size supported by the MNIST
