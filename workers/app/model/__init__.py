@@ -9,6 +9,9 @@ from keras.models import Model
 
 
 class ModelNN:
+    """
+    This class acts as a controller for the Keras model.
+    """
     def __init__(self, h5_file, model_save_path):
         # Setup model to be trained
 
@@ -19,12 +22,21 @@ class ModelNN:
         self.model = tf.keras.models.load_model(model_save_path)
 
     def set_weights(self, weights):
+        """
+        Function to set weights of the model
+        """
         self.model.set_weights(weights)
 
     def get_weights(self):
+        """
+        Function to get weights of the current model
+        """
         return self.model.get_weights()
 
     def train(self, x_train, y_train):
+        """
+        Function to preprocess the given dataset and train the model
+        """
 
         # Scale images to the [0, 1] range
         x_train = x_train.astype("float32") / 255
@@ -50,3 +62,5 @@ class ModelNN:
             validation_split=0.1
         )
         logging.info("Finished training for 1 epoch!")
+
+        return history

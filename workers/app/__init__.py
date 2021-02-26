@@ -20,6 +20,10 @@ from config.flask_config import PARAMS_JSON_ENDPOINT, DefaultConfig, \
 
 
 def create_app(config_object=None, worker_id=1):
+    """
+    This function serves as a producer for the worker instances
+    You can call this function multiple times to produce multiple worker instances
+    """
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -58,11 +62,17 @@ def create_app(config_object=None, worker_id=1):
     # a simple page that says hello
     @app.route('/')
     def hello():
+        """
+        Simple homepage for health check
+        """
         return "Hello from Worker {}!".format(worker_id)
 
     # To check whether worker params successfully set up
     @app.route('/get_params')
     def get_params():
+        """
+        API to get information regarding the scheme used in this server.
+        """
         return jsonify({
             'success': True,
             'error_code': SERVER_OK,
@@ -74,6 +84,11 @@ def create_app(config_object=None, worker_id=1):
 
     @app.route("/reload_weight")
     def reload_weight():
+        """
+        API to reload weight from the server.
+        In practice, there is no need to manually call this API,
+        since this will be called internally if train API is called.
+        """
         weight_string = requests.get(server_ip + SERVER_WEIGHT_ENDPOINT).text
         weight_json = json.loads(weight_string)['result']
         weights = [numpy.asarray(i) for i in weight_json["weights"]]
@@ -87,6 +102,9 @@ def create_app(config_object=None, worker_id=1):
 
     @app.route("/train")
     def train():
+        """
+        API to train the current model for 1 epoch from the available dataset in this server
+        """
         reload_weight()
         x_train, y_train = dataset.get_train_data_partitions(worker_id)
         model_nn.train(x_train, y_train)

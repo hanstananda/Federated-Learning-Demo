@@ -1,3 +1,7 @@
+"""
+All flask configurations shall be put here
+"""
+
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -20,5 +24,8 @@ class DefaultConfig:
 
 
 class DockerConfig(DefaultConfig):
+    """
+    Config for docker
+    """
     SERVER_IP = "http://he-ew-demo-server:7000"
     AGGREGATOR_IP = "http://he-ew-demo-aggregator-service:7200"
