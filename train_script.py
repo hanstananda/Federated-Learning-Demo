@@ -1,3 +1,7 @@
+"""
+Demo script to use the federated training system
+"""
+
 from datetime import datetime
 
 import requests

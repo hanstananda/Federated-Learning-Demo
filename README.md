@@ -41,7 +41,8 @@ Please refer to the respective subprojects' readme for more information.
         "success": true
     }
     ```
-    
+
+Note: The above workflow has been fully automated using `train_script.py`.     
 
 ### Model Used
 The model description is located under `server/model/` package. 
