@@ -85,7 +85,7 @@ def create_app(config_object=None, worker_id=1):
     @app.route("/reload_weight")
     def reload_weight():
         """
-        API to reload weight from the server.
+        API to reload weight from the server. Used for synchronization / debugging purposes
         In practice, there is no need to manually call this API,
         since this will be called internally if train API is called.
         """
@@ -103,7 +103,9 @@ def create_app(config_object=None, worker_id=1):
     @app.route("/train")
     def train():
         """
-        API to train the current model for 1 epoch from the available dataset in this server
+        API to train the current model for 1 epoch from the available dataset in this server and
+        send the weights after training to the aggregator service.
+        Currently set to only train for 1 epoch using MNIST dataset.
         """
         reload_weight()
         x_train, y_train = dataset.get_train_data_partitions(worker_id)
