@@ -20,7 +20,7 @@ class DefaultConfig:
 
 
 class DockerConfig(DefaultConfig):
-    SERVER_IP = "http://he-ew-demo-server:7000"
+    SERVER_IP = "http://fl-demo-server:7000"
 
 
 class ProdConfig(DefaultConfig):

@@ -17,6 +17,12 @@
     
 Currently, the Aggregator is set up to run at port `7200`.
 
+### Running with docker 
+Alternatively, you can just run the Aggregator service using the command below: 
+```bash
+docker-compose up --build
+```
+
 ## APIs 
 
 The current APIs available in this Aggregator service: 

@@ -17,6 +17,20 @@
     
 Currently, there will be two workers set up at port `7101` and `7102` respectively.
 
+### Running a single worker 
+Alternatively, if you want to run just a single worker, you can use another script `run_single_server.py`. 
+```bash
+python run_single_server.py --port=7101 
+```
+Note: Change 7101 to your desired port for the worker. 
+
+### Running with docker
+Alternatively, you can just run the Aggregator service using the command below:
+```bash
+docker-compose up -f docker-compose-worker1.yml --build
+```
+
+
 ## APIs 
 
 The current APIs available in this server:

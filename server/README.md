@@ -15,12 +15,13 @@
     python run_server.py
     ```
 
-Alternatively, you can just run docker-compose to build this project: 
-```bash
-docker-compose up 
-```
-
 Currently, the server is set up to run at port `7000`.
+
+### Running with docker
+Alternatively, you can just run the Aggregator service using the command below:
+```bash
+docker-compose up --build
+```
 
 ## APIs 
 

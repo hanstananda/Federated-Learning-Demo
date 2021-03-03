@@ -29,7 +29,7 @@ class DockerConfig(DefaultConfig):
     Config for docker
     """
     SERVER_IP = "http://fl-demo-server:7000"
-    AGGREGATOR_IP = "http://fl-demo-aggregator-service:7200"
+    AGGREGATOR_IP = "http://fl-aggregator-service:7200"
 
 
 class ProdConfig(DefaultConfig):
