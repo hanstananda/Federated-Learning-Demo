@@ -35,7 +35,7 @@ WORKDIR $PROJECT_DIR
 EXPOSE 7200
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "python" ]
-CMD [ "run_server.py", "--is_docker"]
+CMD [ "run_server.py", "--is_prod"]
 #RUN ls
 #ENTRYPOINT [ "python" ]
 
