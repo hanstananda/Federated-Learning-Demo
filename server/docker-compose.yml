@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  fl-demo-server:
+    container_name: fl_demo_server
+    restart: always
+    build:
+      context: ./
+      dockerfile: docker/dev/Dockerfile
+    networks:
+      - app-network
+    image: fl_demo_server
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/var/www/fl-demo-server
+    ports:
+      - "7000:7000"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:7000" ]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+networks:
+  app-network:
+    external: true
