@@ -4,7 +4,7 @@ FROM python:3.7-slim-buster
 # set environment variables and arguments
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ARG PROJECT=fl-demo-workers
+ARG PROJECT=fl-demo-worker2
 ARG PROJECT_DIR=/var/www/${PROJECT}
 #ARG BASE_PROJECT_DIR=server
 
@@ -32,10 +32,10 @@ RUN pip install -r requirements.txt
 WORKDIR $PROJECT_DIR
 
 # Server
-EXPOSE 7101 7102
+EXPOSE 7102
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "python" ]
-CMD [ "run_server.py", "--is_docker"]
+CMD [ "run_single_server.py", "--is_prod", "--port=7102"]
 #RUN ls
 #ENTRYPOINT [ "python" ]
 

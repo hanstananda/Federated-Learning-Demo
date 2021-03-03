@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  fl-demo-worker2:
+    container_name: fl_demo_worker2
+    restart: always
+    build:
+      context: ./
+      dockerfile: docker/prod2/Dockerfile
+      network: "host"
+    image: fl_demo_worker2
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/var/www/fl-demo-worker2
+    ports:
+      - "7102:7102"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:7102" ]
+      interval: 15s
+      timeout: 10s
+      retries: 5

@@ -3,6 +3,7 @@ All flask configurations shall be put here
 """
 
 import os
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -27,5 +28,14 @@ class DockerConfig(DefaultConfig):
     """
     Config for docker
     """
-    SERVER_IP = "http://he-ew-demo-server:7000"
-    AGGREGATOR_IP = "http://he-ew-demo-aggregator-service:7200"
+    SERVER_IP = "http://fl-demo-server:7000"
+    AGGREGATOR_IP = "http://fl-demo-aggregator-service:7200"
+
+
+class ProdConfig(DefaultConfig):
+    """
+    Config for production using .env
+    """
+    load_dotenv()
+    SERVER_IP = os.getenv("SERVER_IP")
+    AGGREGATOR_IP = "AGGREGATOR_IP"

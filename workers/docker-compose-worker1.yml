@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  fl-demo-worker1:
+    container_name: fl_demo_worker1
+    restart: always
+    build:
+      context: ./
+      dockerfile: docker/dev1/Dockerfile
+    networks:
+      - app-network
+    image: fl_demo_worker1
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/var/www/fl-demo-worker1
+    ports:
+      - "7101:7101"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:7101" ]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+networks:
+  app-network:
+    external: true
