@@ -25,11 +25,13 @@ python run_single_server.py --port=7101
 Note: Change 7101 to your desired port for the worker. 
 
 ### Running with docker
-Alternatively, you can just run the Aggregator service using the command below:
+Alternatively, you can just run the worker service using the command below:
 ```bash
 docker-compose up -f docker-compose-worker1.yml --build
+docker-compose up -f docker-compose-worker2.yml --build
 ```
 
+Currently, those each worker has its own docker-compose file so that it can be started/stopped independently.
 
 ## APIs 
 
