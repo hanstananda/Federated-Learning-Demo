@@ -18,7 +18,7 @@
 Currently, the server is set up to run at port `7000`.
 
 ### Running with docker
-Alternatively, you can just run the Aggregator service using the command below:
+Alternatively, you can just run the FL server using the command below:
 ```bash
 docker-compose up --build
 ```
