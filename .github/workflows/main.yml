@@ -49,4 +49,6 @@ jobs:
       - name: Check logs for workers
         run: docker logs fl_demo_workers
       - name: Test platform using predefined python script 
-        run: python test_script.py
+        run: |
+          pip install pandas  
+          python test_script.py
