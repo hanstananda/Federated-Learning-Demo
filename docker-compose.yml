@@ -1,0 +1,71 @@
+version: '3.8'
+services:
+  fl-demo-server:
+    container_name: fl_demo_server
+    restart: always
+    build:
+      context: ./server
+      dockerfile: docker/dev/Dockerfile
+    image: fl_demo_server
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./server:/var/www/fl-demo-server
+    ports:
+      - "7000:7000"
+    networks:
+      - isolation-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://0.0.0.0:7000" ]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+  fl-demo-workers:
+    container_name: fl_demo_workers
+    depends_on:
+      - fl-demo-server
+#        condition: service_healthy
+#      pyseal-demo-aggregator-service:
+#          condition: service_healthy
+    restart: always
+    build:
+      context: ./workers
+      dockerfile: docker/dev/Dockerfile
+    image: fl_demo_workers
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./workers:/var/www/fl-demo-workers
+    ports:
+      - "7101:7101"
+      - "7102:7102"
+    networks:
+      - isolation-network
+  fl-aggregator-service:
+    container_name: fl_aggregator_service
+    depends_on:
+      - fl-demo-server
+#        condition: service_healthy
+    restart: always
+    build:
+      context: ./Aggregator
+      dockerfile: docker/dev/Dockerfile
+    image: fl_aggregator_service
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./Aggregator:/var/www/fl-aggregator-service
+    ports:
+      - "7200:7200"
+    networks:
+      - isolation-network
+#    healthcheck:
+#      test: [ "CMD", "curl", "-f", "http://localhost:7200" ]
+#      interval: 15s
+#      timeout: 10s
+#      retries: 5
+
+
+networks:
+  isolation-network:
+    driver: bridge
