@@ -43,10 +43,10 @@ jobs:
       - name: Check running containers
         run: docker ps -a 
       - name: Check logs for server 
-        run: docker logs he_ew_demo_server
+        run: docker logs fl_demo_server
       - name: Check logs for aggregator
-        run: docker logs he_ew_demo_aggregator_service
+        run: docker logs fl_aggregator_service
       - name: Check logs for workers
-        run: docker logs he_ew_demo_workers
+        run: docker logs fl_demo_workers
       - name: Test platform using predefined python script 
         run: python test_script.py
